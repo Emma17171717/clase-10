@@ -1,1 +1,97 @@
-print("Eliana Hernandez")
+from modelo_carro import Auto
+class Administrador:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def ordenar_fabricacion(self, maquina, modelo):
+        return maquina.fabricar_auto(modelo)
+
+    def revisar_auto(self, auto):
+        return f"El administrador {self.nombre} revisa el auto {auto.modelo}. Estado: {auto.estado}"
+
+class Auto:
+    def __init__(self, modelo):
+        self.modelo = modelo
+        self.estado = "En espera"
+
+    def encender(self):
+        if self.estado == "Fabricado" or self.estado == "Reparado":
+            return f"El auto {self.modelo} se ha encendido correctamente."
+        else:
+            return f"El auto {self.modelo} no puede encenderse. Estado: {self.estado}"
+
+    def mostrar_info(self):
+        return f"Modelo: {self.modelo} | Estado: {self.estado}"
+
+from modelo_carro import Auto
+class Maquina:
+    def __init__(self, id_maquina):
+        self.id_maquina = id_maquina
+
+    def fabricar_auto(self, modelo):
+        nuevo_auto = Auto(modelo)
+        nuevo_auto.estado = "Fabricado"
+        return nuevo_auto
+
+    def reparar_auto(self, auto):
+        auto.estado = "Reparado"
+        return f"La máquina {self.id_maquina} ha reparado el auto {auto.modelo}."
+
+from modelo_usuario import Administrador
+from modelo_carro import Auto
+from modelo_maquina import Maquina
+
+def menu():
+    admin = Administrador("Carlos")
+    maquina = Maquina("M-01")
+    auto = None
+
+    while True:
+        print("\n=== FÁBRICA DE AUTOS ===")
+        print("1. Fabricar un auto")
+        print("2. Revisar auto")
+        print("3. Encender auto")
+        print("4. Reparar auto")
+        print("5. Mostrar información del auto")
+        print("6. Salir")
+
+        opcion = input("Elige una opción: ")
+
+        if opcion == "1":
+            modelo = input("\nIngresa el modelo del auto: ")
+            auto = admin.ordenar_fabricacion(maquina, modelo)
+            print(f"\nAuto {auto.modelo} fabricado correctamente.")
+
+        elif opcion == "2":
+            if auto:
+                print(admin.revisar_auto(auto))
+            else:
+                print("\nNo hay autos fabricados aún.")
+
+        elif opcion == "3":
+            if auto:
+                print(auto.encender())
+            else:
+                print("\nNo hay autos disponibles.")
+
+        elif opcion == "4":
+            if auto:
+                print(maquina.reparar_auto(auto))
+            else:
+                print("\nNo hay autos para reparar.")
+
+        elif opcion == "5":
+            if auto:
+                print(auto.mostrar_info())
+            else:
+                print("\nNo hay autos registrados.")
+
+        elif opcion == "6":
+            print("\nSaliendo del sistema...")
+            break
+
+        else:
+            print("\nOpción no válida. Intenta de nuevo.")
+
+if __name__ == "__main__":
+    menu()
