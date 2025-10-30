@@ -1,0 +1,13 @@
+class Auto:
+    def __init__(self, modelo):
+        self.modelo = modelo
+        self.estado = "En espera"
+
+    def encender(self):
+        if self.estado == "Fabricado" or self.estado == "Reparado":
+            return f"El auto {self.modelo} se ha encendido correctamente."
+        else:
+            return f"El auto {self.modelo} no puede encenderse. Estado: {self.estado}"
+
+    def mostrar_info(self):
+        return f"Modelo: {self.modelo} | Estado: {self.estado}"
