@@ -1,0 +1,10 @@
+from modelo_carro import Auto
+class Administrador:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def ordenar_fabricacion(self, maquina, modelo):
+        return maquina.fabricar_auto(modelo)
+
+    def revisar_auto(self, auto):
+        return f"El administrador {self.nombre} revisa el auto {auto.modelo}. Estado: {auto.estado}"
