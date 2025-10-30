@@ -1,0 +1,58 @@
+from modelo_usuario import Administrador
+from modelo_carro import Auto
+from modelo_maquina import Maquina
+
+def menu():
+    admin = Administrador("Carlos")
+    maquina = Maquina("M-01")
+    auto = None
+
+    while True:
+        print("\n=== FÁBRICA DE AUTOS ===")
+        print("1. Fabricar un auto")
+        print("2. Revisar auto")
+        print("3. Encender auto")
+        print("4. Reparar auto")
+        print("5. Mostrar información del auto")
+        print("6. Salir")
+
+        opcion = input("Elige una opción: ")
+
+        if opcion == "1":
+            modelo = input("\nIngresa el modelo del auto: ")
+            auto = admin.ordenar_fabricacion(maquina, modelo)
+            print(f"\nAuto {auto.modelo} fabricado correctamente.")
+
+        elif opcion == "2":
+            if auto:
+                print(admin.revisar_auto(auto))
+            else:
+                print("\nNo hay autos fabricados aún.")
+
+        elif opcion == "3":
+            if auto:
+                print(auto.encender())
+            else:
+                print("\nNo hay autos disponibles.")
+
+        elif opcion == "4":
+            if auto:
+                print(maquina.reparar_auto(auto))
+            else:
+                print("\nNo hay autos para reparar.")
+
+        elif opcion == "5":
+            if auto:
+                print(auto.mostrar_info())
+            else:
+                print("\nNo hay autos registrados.")
+
+        elif opcion == "6":
+            print("\nSaliendo del sistema...")
+            break
+
+        else:
+            print("\nOpción no válida. Intenta de nuevo.")
+
+if __name__ == "__main__":
+    menu()
